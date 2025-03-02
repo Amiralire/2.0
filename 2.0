@@ -44,7 +44,7 @@ typing_effect() {
 show_header() {
     clear
     colors=($RED $YELLOW $GREEN $CYAN $BLUE $MAGENTA)
-    text="🎲 ULTRA RANDOM IP GENERATOR 🎲"
+    text="❤️ ULTRA RANDOM IP GENERATOR ❤️"
     echo -n " "
     for ((i = 0; i < ${#text}; i++)); do
         color=${colors[$((i % ${#colors[@]}))]}
