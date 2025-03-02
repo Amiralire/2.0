@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# IP ranges provided
+ip_ranges=(
+    "94.125.224"
+    "89.40.65"
+    "197.157.210"
+    "176.53.3"
+)
+
+# Colors
+GREEN="\e[92m"
+BLUE="\e[94m"
+CYAN="\e[96m"
+YELLOW="\e[93m"
+RED="\e[91m"
+MAGENTA="\e[95m"
+WHITE="\e[97m"
+RESET="\e[0m"
+
+# Function to generate a random IP
+generate_random_ip() {
+    selected_range=${ip_ranges[$RANDOM % ${#ip_ranges[@]}]}
+    last_octet=$(( RANDOM % 254 + 1 ))
+    ip="$selected_range.$last_octet"
+    
+    echo -e "${MAGENTA}┌───────────────────────────────┐${RESET}"
+    echo -e "${MAGENTA}│ ${CYAN}🎯 Generated IP: ${WHITE}$ip ${MAGENTA}│${RESET}"
+    echo -e "${MAGENTA}└───────────────────────────────┘${RESET}"
+}
+
+# Animated typing effect
+typing_effect() {
+    text=$1
+    delay=0.05
+    for ((i = 0; i < ${#text}; i++)); do
+        echo -n -e "${WHITE}${text:$i:1}${RESET}"
+        sleep $delay
+    done
+    echo ""
+}
+
+# Animated header with wave effect
+show_header() {
+    clear
+    colors=($RED $YELLOW $GREEN $CYAN $BLUE $MAGENTA)
+    text="🎲 ULTRA RANDOM IP GENERATOR 🎲"
+    echo -n " "
+    for ((i = 0; i < ${#text}; i++)); do
+        color=${colors[$((i % ${#colors[@]}))]}
+        echo -n -e "${color}${text:$i:1}${RESET}"
+        sleep 0.05
+    done
+    echo -e "\n${CYAN}══════════════════════════════════${RESET}\n"
+}
+
+# Loading bar effect
+loading_bar() {
+    echo -n -e "${YELLOW}Generating IPs"
+    for i in {1..6}; do
+        echo -n "."
+        sleep 0.3
+    done
+    echo -e "${RESET}\n"
+}
+
+# Run the script with animations
+show_header
+typing_effect "[+] Welcome to the most stylish IP generator!"
+loading_bar
+
+for i in {1..5}; do
+    generate_random_ip
+    sleep 0.5
+done
+
+echo -e "\n${GREEN}[✓]${RESET} ${CYAN}All IPs Generated Successfully!${RESET}\n"
